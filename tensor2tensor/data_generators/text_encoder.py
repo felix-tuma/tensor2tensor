@@ -207,10 +207,11 @@ class ClassLabelEncoder(TextEncoder):
     return self._class_labels.index(label_str)
 
   def decode(self, label_id):
-    if isinstance(label_id, list):
+    if isinstance(label_id, list) or isinstance(label_id, np.ndarray):
       assert len(label_id) == 1
       label_id, = label_id
-    return self._class_labels[label_id]
+    return self._class_labels(None)[label_id[0]]
+
 
   @property
   def vocab_size(self):
